@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "ru.xpixel.mixin.client",
+	"compatibilityLevel": "JAVA_17",
+	"client": [
+		"CutsceneClientMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
