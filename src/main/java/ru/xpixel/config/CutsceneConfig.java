@@ -6,16 +6,17 @@ import net.fabricmc.loader.api.FabricLoader;
 import ru.xpixel.CutsceneMod;
 
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CutsceneConfig {
     public static final CutsceneConfig INSTANCE = new CutsceneConfig();
     public final Path configFile = FabricLoader.getInstance().getConfigDir().resolve("cutscenes.json");
     private final Gson gson = (new GsonBuilder()).setPrettyPrinting().create();
-    public Map<String, String[]> cutscenes = new HashMap<>();
+    public Map<String, ArrayList<String>> cutscenes = new HashMap<>();
 
 
     public CutsceneConfig() {
@@ -25,7 +26,8 @@ public class CutsceneConfig {
     public void create() {
         try {
             Files.deleteIfExists(this.configFile);
-            this.cutscenes.put("preview", new String[]{"Hello World!", "Edit me!"});
+            ArrayList<String> preview = new ArrayList<String>(List.of(new String[]{"Hello world!", "Edit this in config/cutscenes.json!"}));
+            this.cutscenes.put("preview", preview);
             Files.writeString(this.configFile, this.gson.toJson(this.cutscenes));
         } catch (Exception var2) {
             CutsceneMod.LOGGER.error("Failed to create config file!");
